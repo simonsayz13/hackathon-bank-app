@@ -91,6 +91,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="creditcard" size={24} color={color} />
           ),
+          headerShown: false,
         }}
       />
     </Tabs>
