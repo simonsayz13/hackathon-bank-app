@@ -96,6 +96,7 @@ export default function TabLayout() {
             </FlashingBackground>
 
           ),
+          headerShown: false,
         }}
       />
     </Tabs>

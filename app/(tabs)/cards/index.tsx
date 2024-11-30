@@ -10,8 +10,10 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "expo-router";
 
 const Cards = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View>
@@ -73,7 +75,12 @@ const Cards = () => {
             </View>
             <Text style={styles.actionLabelText}>Card details</Text>
           </Pressable>
-          <Pressable style={styles.actionView}>
+          <Pressable
+            style={styles.actionView}
+            onPress={() => {
+              navigation.navigate("viewPIN");
+            }}
+          >
             <View style={styles.actionIcon}>
               <Feather name="eye" size={30} color="black" />
             </View>
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardContainer: {
-    backgroundColor: "#65a75f",
+    backgroundColor: "#11b67a",
     width: 260,
     height: 160,
     borderRadius: 12,
