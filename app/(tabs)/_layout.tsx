@@ -9,6 +9,8 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import CustomTopBar from "@/components/ui/CustomTopBar";
+import FlashingBackground from "@/components/FlashingBackground";
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
@@ -89,7 +91,10 @@ export default function TabLayout() {
         options={{
           title: "Cards",
           tabBarIcon: ({ color }) => (
-            <AntDesign name="creditcard" size={24} color={color} />
+            <FlashingBackground>
+              <AntDesign name="creditcard" size={24} color={color} />
+            </FlashingBackground>
+
           ),
         }}
       />
