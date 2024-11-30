@@ -3,20 +3,14 @@ import React from "react";
 import { Platform, Pressable } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import CustomTopBar from "@/components/ui/CustomTopBar";
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
   const navigation = useNavigation();
   return (
     <Tabs
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: "black",
-        header: () => <CustomTopBar title={route.name} />,
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({
           ios: {
@@ -34,6 +28,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen

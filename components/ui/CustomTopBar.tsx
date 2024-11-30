@@ -11,7 +11,7 @@ const CustomTopBar = (props: any) => {
   return (
     <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
       <Text style={styles.title}>{headertitle}</Text>
-      <View style={styles.iconView}>
+      <View style={[styles.iconView, { paddingTop: insets.top }]}>
         <SimpleLineIcons name="question" size={24} color="black" />
         <FontAwesome6 name="user-large" size={24} color="black" />
       </View>
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   iconView: {
+    position: "absolute",
+    right: 10,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
