@@ -58,8 +58,16 @@ export default function RootLayout() {
             title: "Payments",
           }}
         />
+        <Stack.Screen
+          name="statements"
+          options={{
+            presentation: "modal", // Show as a modal
+            headerShown: false, // Show header for the modal
+            title: "Statements",
+          }}
+        />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </ThemeProvider>
   );
 }
