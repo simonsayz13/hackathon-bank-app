@@ -1,74 +1,169 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
+const Home = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <View>
+        <ScrollView
+          style={[styles.scrollViewContainer]}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          <View style={[styles.buttonContainer, { backgroundColor: "black" }]}>
+            <Text style={[styles.buttonText, { color: "white" }]}>Summary</Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>Everyday</Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>Save & invest</Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>Borrow</Text>
+          </View>
+        </ScrollView>
+      </View>
+      <ScrollView style={[styles.scrollViewContainer, { gap: 20 }]}>
+        <View style={styles.accountView}>
+          <View style={styles.accountContainer}>
+            <View style={styles.productDetailContainer}>
+              <Text style={styles.productNameText}>Club lloyds</Text>
+              <Text style={styles.productDetailsText}>66-66-66 / 12341234</Text>
+            </View>
+            <View>
+              <Text style={styles.balanceText}>£520.33</Text>
+            </View>
+          </View>
+          <View style={styles.productActionView}>
+            <Text style={{ fontSize: 14, fontWeight: 400 }}>
+              Your overdraft options
+            </Text>
+            <AntDesign name="arrowright" size={20} color="black" />
+          </View>
+        </View>
+
+        <View style={styles.accountView}>
+          <View style={[styles.accountContainer, { borderRadius: 8 }]}>
+            <View style={styles.productDetailContainer}>
+              <Text style={styles.productNameText}>
+                Club Lloyds Monthly Saver
+              </Text>
+              <Text style={styles.productDetailsText}>66-66-66 / 12341234</Text>
+            </View>
+            <View>
+              <Text style={styles.balanceText}>£120.10</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.accountView}>
+          <View style={[styles.accountContainer, { borderRadius: 8 }]}>
+            <View style={styles.productDetailContainer}>
+              <Text style={styles.productNameText}>
+                Club Lloyds Advantage ISA Saver
+              </Text>
+              <Text style={styles.productDetailsText}>66-66-66 / 11111111</Text>
+            </View>
+            <View>
+              <Text style={styles.balanceText}>£7,429.10</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.accountView}>
+          <View style={[styles.accountContainer, { borderRadius: 8 }]}>
+            <View
+              style={{ flexDirection: "row", gap: 3, alignItems: "center" }}
+            >
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require("../../assets/images/scottish-widow-logo.webp")}
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.productDetailContainer}>
+                <Text style={styles.productNameText}>Personal Pension</Text>
+                <Text style={styles.productDetailsText}>42312423</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.balanceText}>£1,234.00</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { flex: 1 },
+  scrollViewContainer: { padding: 10 },
+  buttonContainer: {
+    height: 30,
+    borderWidth: 1,
+    borderColor: "black",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    width: 100,
+    alignItems: "center",
+    marginRight: 8,
+    justifyContent: "center",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  buttonText: {
+    fontSize: 12,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  accountContainer: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    backgroundColor: "white",
+    padding: 14,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  productDetailContainer: { gap: 2 },
+  productNameText: {
+    width: 180,
+    fontWeight: 600,
+    fontSize: 16,
+  },
+  productDetailsText: {
+    color: "grey",
+    fontSize: 14,
+  },
+  balanceText: {
+    fontSize: 20,
+    fontWeight: 600,
+  },
+  productActionView: {
+    borderTopColor: "black",
+    borderTopWidth: 0.2,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  accountView: {
+    marginBottom: 10,
+  },
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 30,
+    height: 30,
+  },
+  image: {
+    borderWidth: 1,
+    borderColor: "grey",
+    borderRadius: 4,
+    width: 26,
+    height: 26,
   },
 });
+
+export default Home;
