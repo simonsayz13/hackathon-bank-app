@@ -7,9 +7,8 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useEffect, } from "react";
 import "react-native-reanimated";
-import { io } from 'socket.io-client';
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -20,22 +19,8 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    const socket = io('http://localhost:8080'); // Replace with your server URL
-
-    // Listen for events
-    socket.on('response', (message:any) => {
-      alert(message)
-      //@ts-ignore
-        setMessages((prev) => [...prev, message]);
-    });
-
-    return () => {
-        socket.disconnect(); // Clean up on component unmount
-    };
-  }, []);
+ 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
