@@ -37,7 +37,10 @@ const FlashingBorder = ({
     );
     return {
       borderColor,
-      padding: sharedData.message.componentId !== "tab-card" ? 5 : 0,
+      padding:
+        sharedData.message.componentId !== ("tab-card" || "btn-show-pin")
+          ? 5
+          : 0,
       height: sharedData.message.componentId === "tab-card" ? 40 : undefined,
       width: sharedData.message.componentId === "tab-card" ? 40 : undefined,
       justifyContent: "center",
