@@ -23,6 +23,7 @@ export const AppProvider = ({ children }) => {
     // Listen for events
     socket.on("message", (message: any) => {
       //@ts-ignore
+      console.log(message);
       setSharedData({ message: JSON.parse(message), socket });
     });
 

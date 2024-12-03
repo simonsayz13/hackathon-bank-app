@@ -1,7 +1,11 @@
 import { io } from "socket.io-client";
 
-export const createMessageData = (screen: string, button: string) => {
-  return { sender: "admin-adminid", screen, button };
+export const createMessageData = (
+  screenId: string,
+  componentId?: string,
+  complete?: boolean
+) => {
+  return { sender: "customer", screenId, componentId, complete };
 };
 
 export const initializeSocket = () => {
@@ -16,8 +20,8 @@ export const disconnectSocket = (socket: any) => {
 export const sendMessageOnSocket = (
   socket: any,
   screen: string,
-  button: string
+  componentId?: string,
+  complete?: boolean
 ) => {
-  console.log(socket, screen, button);
-  socket.emit("message", createMessageData(screen, button));
+  socket.emit("message", createMessageData(screen, componentId, complete));
 };

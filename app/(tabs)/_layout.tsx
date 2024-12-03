@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FlashingBackground from "@/components/FlashingBackground";
 import { useAppContext } from "../appContext";
+import { sendMessageOnSocket } from "../helper";
 
 export default function TabLayout() {
   const navigation = useNavigation();
@@ -95,6 +96,7 @@ export default function TabLayout() {
             <Pressable
               onPress={() => {
                 router.push("/cards");
+                sendMessageOnSocket(sharedData.socket, "screen-card");
               }}
             >
               <FlashingBackground

@@ -11,9 +11,12 @@ import Feather from "@expo/vector-icons/Feather";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "expo-router";
+import FlashingBackground from "@/components/FlashingBackground";
+import { useAppContext } from "@/app/appContext";
 
 const Cards = () => {
   const navigation = useNavigation();
+  const { sharedData } = useAppContext();
   return (
     <View style={styles.container}>
       <View>
@@ -75,17 +78,21 @@ const Cards = () => {
             </View>
             <Text style={styles.actionLabelText}>Card details</Text>
           </Pressable>
-          <Pressable
-            style={styles.actionView}
-            onPress={() => {
-              navigation.navigate("viewPIN");
-            }}
+          <FlashingBackground
+            enabled={sharedData.message.componentId === "btn-view-pin"}
           >
-            <View style={styles.actionIcon}>
-              <Feather name="eye" size={30} color="black" />
-            </View>
-            <Text style={styles.actionLabelText}>View PIN</Text>
-          </Pressable>
+            <Pressable
+              style={styles.actionView}
+              onPress={() => {
+                navigation.navigate("viewPIN");
+              }}
+            >
+              <View style={styles.actionIcon}>
+                <Feather name="eye" size={30} color="black" />
+              </View>
+              <Text style={styles.actionLabelText}>View PIN</Text>
+            </Pressable>
+          </FlashingBackground>
           <Pressable style={styles.actionView}>
             <View style={styles.actionIcon}>
               <MaterialCommunityIcons

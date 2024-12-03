@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FlashingBackground from "@/components/FlashingBackground";
+import { useAppContext } from "@/app/appContext";
+import { sendMessageOnSocket } from "@/app/helper";
 const ViewPIN = () => {
   const [shownClicked, setShownClicked] = useState<boolean>(false);
   const [showPIN, setShowPIN] = useState<boolean>(true);
-
+  const { sharedData } = useAppContext();
   return (
     <View
       style={{
@@ -34,14 +37,24 @@ const ViewPIN = () => {
             </View>
           </View>
           <View style={{ paddingTop: 200 }}>
-            <Pressable
-              style={styles.shownButton}
-              onPress={() => {
-                setShownClicked(true);
-              }}
+            <FlashingBackground
+              enabled={sharedData.message.componentId === "btn-show-pin"}
             >
-              <Text style={styles.buttonText}>Show PIN</Text>
-            </Pressable>
+              <Pressable
+                style={styles.shownButton}
+                onPress={() => {
+                  setShownClicked(true);
+                  sendMessageOnSocket(
+                    sharedData.socket,
+                    "screen-card",
+                    "",
+                    true
+                  );
+                }}
+              >
+                <Text style={styles.buttonText}>Show PIN</Text>
+              </Pressable>
+            </FlashingBackground>
           </View>
         </View>
       ) : (
@@ -69,6 +82,7 @@ const ViewPIN = () => {
               <Text style={{ fontSize: 16, fontWeight: 600 }}>**** 1234</Text>
             </View>
           </View>
+
           <View
             style={{
               alignItems: "center",
