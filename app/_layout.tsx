@@ -7,10 +7,9 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
-import { io } from 'socket.io-client';
-
+import { initializeSocket, sendMessageOnSocket } from "./helper";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -21,21 +20,25 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
   const [messages, setMessages] = useState([]);
-
+  const socket = initializeSocket();
   useEffect(() => {
-    const socket = io('http://localhost:8080'); // Replace with your server URL
+    // const socket = io('http://localhost:8080'); // Replace with your server URL
 
     // Listen for events
-    socket.on('response', (message:any) => {
-      alert(message)
+    socket.on("response", (message: any) => {
+      alert(message);
+
       //@ts-ignore
-        setMessages((prev) => [...prev, message]);
+      setMessages((prev) => [...prev, message]);
     });
 
+    sendMessageOnSocket(socket, "test1", "fdmsaod");
+
     return () => {
-        socket.disconnect(); // Clean up on component unmount
+      socket.disconnect(); // Clean up on component unmount
     };
   }, []);
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
