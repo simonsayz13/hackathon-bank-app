@@ -1,6 +1,6 @@
 import { Tabs, useNavigation, useRouter } from "expo-router";
 import React from "react";
-import { Platform, Pressable } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -114,7 +114,9 @@ export default function TabLayout() {
                   <AntDesign name="creditcard" size={24} color={color} />
                 </FlashingBackground>
               ) : (
+                // <View style={{ padding: 2 }}>
                 <AntDesign name="creditcard" size={24} color={color} />
+                // </View>
               )}
             </Pressable>
           ),

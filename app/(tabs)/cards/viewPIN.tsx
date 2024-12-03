@@ -57,20 +57,22 @@ const ViewPIN = () => {
                 </Pressable>
               </FlashingBackground>
             ) : (
-              <Pressable
-                style={styles.shownButton}
-                onPress={() => {
-                  setShownClicked(true);
-                  sendMessageOnSocket(
-                    sharedData.socket,
-                    "screen-card",
-                    "",
-                    true
-                  );
-                }}
-              >
-                <Text style={styles.buttonText}>Show PIN</Text>
-              </Pressable>
+              <View style={{ padding: 7 }}>
+                <Pressable
+                  style={styles.shownButton}
+                  onPress={() => {
+                    setShownClicked(true);
+                    sendMessageOnSocket(
+                      sharedData.socket,
+                      "screen-card",
+                      "",
+                      true
+                    );
+                  }}
+                >
+                  <Text style={styles.buttonText}>Show PIN</Text>
+                </Pressable>
+              </View>
             )}
           </View>
         </View>

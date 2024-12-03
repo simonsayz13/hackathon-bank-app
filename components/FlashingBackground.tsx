@@ -1,3 +1,4 @@
+import { useAppContext } from "@/app/appContext";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -16,6 +17,7 @@ const FlashingBorder = ({
   enabled?: boolean;
 }) => {
   const borderAnimation = useSharedValue(0);
+  const { sharedData } = useAppContext();
 
   useEffect(() => {
     // Start infinite loop animation for the border
@@ -35,12 +37,19 @@ const FlashingBorder = ({
     );
     return {
       borderColor,
-      borderWidth: 2, // Border width around the children
+      padding: sharedData.message.componentId !== "tab-card" ? 5 : 0,
+      height: sharedData.message.componentId === "tab-card" ? 40 : undefined,
+      width: sharedData.message.componentId === "tab-card" ? 40 : undefined,
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 2, // Border width around the children,
+      borderRadius: 10,
     };
   });
   const inAnimatedStyle = useAnimatedStyle(() => {
     return {
       borderColor: "transparent",
+      padding: 0,
       borderWidth: 0, // Border width around the children
     };
   });

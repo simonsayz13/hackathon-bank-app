@@ -97,18 +97,20 @@ const Cards = () => {
               </Pressable>
             </FlashingBackground>
           ) : (
-            <Pressable
-              style={styles.actionView}
-              onPress={() => {
-                navigation.navigate("viewPIN");
-                sendMessageOnSocket(sharedData.socket, "screen-view-pin");
-              }}
-            >
-              <View style={styles.actionIcon}>
-                <Feather name="eye" size={30} color="black" />
-              </View>
-              <Text style={styles.actionLabelText}>View PIN</Text>
-            </Pressable>
+            <View style={{ padding: 7 }}>
+              <Pressable
+                style={styles.actionView}
+                onPress={() => {
+                  navigation.navigate("viewPIN");
+                  sendMessageOnSocket(sharedData.socket, "screen-view-pin");
+                }}
+              >
+                <View style={styles.actionIcon}>
+                  <Feather name="eye" size={30} color="black" />
+                </View>
+                <Text style={styles.actionLabelText}>View PIN</Text>
+              </Pressable>
+            </View>
           )}
           <Pressable style={styles.actionView}>
             <View style={styles.actionIcon}>
