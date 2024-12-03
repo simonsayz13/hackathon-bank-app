@@ -9,11 +9,17 @@ import {
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "expo-router";
 import FlashingBackground from "@/components/FlashingBackground";
+import { useAppContext } from "@/app/appContext";
 const Home = () => {
   const navigation = useNavigation();
+
+  const { sharedData } = useAppContext();
+
+  console.log(sharedData);
   return (
     <View style={styles.container}>
       <View>
+        <Text>{sharedData.message.componentId}</Text>
         <ScrollView
           style={[styles.scrollViewContainer]}
           horizontal
