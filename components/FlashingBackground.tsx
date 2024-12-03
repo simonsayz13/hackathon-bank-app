@@ -38,9 +38,17 @@ const FlashingBorder = ({
       borderWidth: 2, // Border width around the children
     };
   });
+  const inAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      borderColor: "transparent",
+      borderWidth: 0, // Border width around the children
+    };
+  });
 
   return (
-    <Animated.View style={[enabled && animatedStyle]}>{children}</Animated.View>
+    <Animated.View style={[enabled ? animatedStyle : inAnimatedStyle]}>
+      {children}
+    </Animated.View>
   );
 };
 

@@ -13,6 +13,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "expo-router";
 import FlashingBackground from "@/components/FlashingBackground";
 import { useAppContext } from "@/app/appContext";
+import { sendMessageOnSocket } from "@/app/helper";
 
 const Cards = () => {
   const navigation = useNavigation();
@@ -78,13 +79,29 @@ const Cards = () => {
             </View>
             <Text style={styles.actionLabelText}>Card details</Text>
           </Pressable>
-          <FlashingBackground
-            enabled={sharedData.message.componentId === "btn-view-pin"}
-          >
+          {sharedData.message.componentId === "btn-view-pin" ? (
+            <FlashingBackground
+              enabled={sharedData.message.componentId === "btn-view-pin"}
+            >
+              <Pressable
+                style={styles.actionView}
+                onPress={() => {
+                  navigation.navigate("viewPIN");
+                  sendMessageOnSocket(sharedData.socket, "screen-view-pin");
+                }}
+              >
+                <View style={styles.actionIcon}>
+                  <Feather name="eye" size={30} color="black" />
+                </View>
+                <Text style={styles.actionLabelText}>View PIN</Text>
+              </Pressable>
+            </FlashingBackground>
+          ) : (
             <Pressable
               style={styles.actionView}
               onPress={() => {
                 navigation.navigate("viewPIN");
+                sendMessageOnSocket(sharedData.socket, "screen-view-pin");
               }}
             >
               <View style={styles.actionIcon}>
@@ -92,7 +109,7 @@ const Cards = () => {
               </View>
               <Text style={styles.actionLabelText}>View PIN</Text>
             </Pressable>
-          </FlashingBackground>
+          )}
           <Pressable style={styles.actionView}>
             <View style={styles.actionIcon}>
               <MaterialCommunityIcons

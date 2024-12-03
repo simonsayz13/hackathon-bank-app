@@ -37,9 +37,26 @@ const ViewPIN = () => {
             </View>
           </View>
           <View style={{ paddingTop: 200 }}>
-            <FlashingBackground
-              enabled={sharedData.message.componentId === "btn-show-pin"}
-            >
+            {sharedData.message.componentId === "btn-show-pin" ? (
+              <FlashingBackground
+                enabled={sharedData.message.componentId === "btn-show-pin"}
+              >
+                <Pressable
+                  style={styles.shownButton}
+                  onPress={() => {
+                    setShownClicked(true);
+                    sendMessageOnSocket(
+                      sharedData.socket,
+                      "screen-card",
+                      "",
+                      true
+                    );
+                  }}
+                >
+                  <Text style={styles.buttonText}>Show PIN</Text>
+                </Pressable>
+              </FlashingBackground>
+            ) : (
               <Pressable
                 style={styles.shownButton}
                 onPress={() => {
@@ -54,7 +71,7 @@ const ViewPIN = () => {
               >
                 <Text style={styles.buttonText}>Show PIN</Text>
               </Pressable>
-            </FlashingBackground>
+            )}
           </View>
         </View>
       ) : (

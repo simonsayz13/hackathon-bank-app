@@ -23,5 +23,8 @@ export const sendMessageOnSocket = (
   componentId?: string,
   complete?: boolean
 ) => {
-  socket.emit("message", createMessageData(screen, componentId, complete));
+  socket.emit(
+    "message",
+    JSON.stringify(createMessageData(screen, componentId, complete))
+  );
 };

@@ -12,7 +12,7 @@ import { sendMessageOnSocket } from "../helper";
 export default function TabLayout() {
   const navigation = useNavigation();
   const router = useRouter();
-  const { sharedData } = useAppContext();
+  const { sharedData, setSharedData } = useAppContext();
 
   return (
     <Tabs
@@ -96,14 +96,26 @@ export default function TabLayout() {
             <Pressable
               onPress={() => {
                 router.push("/cards");
+                setSharedData({
+                  message: "Hello from Context!",
+                  socket: sharedData.socket,
+                });
                 sendMessageOnSocket(sharedData.socket, "screen-card");
+
+                setTimeout(() => {
+                  console.log("hgelll   ", sharedData.message);
+                }, 200);
               }}
             >
-              <FlashingBackground
-                enabled={sharedData.message.componentId === "tab-card"}
-              >
+              {sharedData.message.componentId === "tab-card" ? (
+                <FlashingBackground
+                  enabled={sharedData.message.componentId === "tab-card"}
+                >
+                  <AntDesign name="creditcard" size={24} color={color} />
+                </FlashingBackground>
+              ) : (
                 <AntDesign name="creditcard" size={24} color={color} />
-              </FlashingBackground>
+              )}
             </Pressable>
           ),
           headerShown: false,

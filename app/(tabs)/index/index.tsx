@@ -15,7 +15,6 @@ const Home = () => {
 
   const { sharedData } = useAppContext();
 
-  console.log(sharedData);
   return (
     <View style={styles.container}>
       <View>
