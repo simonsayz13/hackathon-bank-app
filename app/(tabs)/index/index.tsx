@@ -19,7 +19,6 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{sharedData.message.componentId}</Text>
         <ScrollView
           style={[styles.scrollViewContainer]}
           horizontal
@@ -40,7 +39,9 @@ const Home = () => {
         </ScrollView>
       </View>
       <ScrollView style={styles.scrollViewContainer}>
-        <FlashingBackground>
+        <FlashingBackground
+          enabled={sharedData.message.componentId === "currentAccount"}
+        >
           <Pressable
             style={styles.accountView}
             onPress={() => {

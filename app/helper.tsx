@@ -5,7 +5,7 @@ export const createMessageData = (screen: string, button: string) => {
 };
 
 export const initializeSocket = () => {
-  const socket = io("http://10.23.1.23:5001"); // Replace with your server URL
+  const socket = io("http://10.23.1.23:8080"); // Replace with your server URL
   return socket;
 };
 

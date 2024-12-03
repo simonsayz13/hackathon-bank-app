@@ -10,10 +10,10 @@ import Animated, {
 
 const FlashingBorder = ({
   children,
-  disabled,
+  enabled,
 }: {
   children: any;
-  disabled?: boolean;
+  enabled?: boolean;
 }) => {
   const borderAnimation = useSharedValue(0);
 
@@ -40,9 +40,7 @@ const FlashingBorder = ({
   });
 
   return (
-    <Animated.View style={[!disabled && animatedStyle]}>
-      {children}
-    </Animated.View>
+    <Animated.View style={[enabled && animatedStyle]}>{children}</Animated.View>
   );
 };
 

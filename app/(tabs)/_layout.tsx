@@ -1,4 +1,4 @@
-import { Tabs, useNavigation } from "expo-router";
+import { Tabs, useNavigation, useRouter } from "expo-router";
 import React from "react";
 import { Platform, Pressable } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
@@ -6,9 +6,13 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FlashingBackground from "@/components/FlashingBackground";
+import { useAppContext } from "../appContext";
 
 export default function TabLayout() {
   const navigation = useNavigation();
+  const router = useRouter();
+  const { sharedData } = useAppContext();
+
   return (
     <Tabs
       screenOptions={({ route }) => ({
@@ -88,7 +92,17 @@ export default function TabLayout() {
         options={{
           title: "Cards",
           tabBarIcon: ({ color }) => (
-            <AntDesign name="creditcard" size={24} color={color} />
+            <Pressable
+              onPress={() => {
+                router.push("/cards");
+              }}
+            >
+              <FlashingBackground
+                enabled={sharedData.message.componentId === "tab-card"}
+              >
+                <AntDesign name="creditcard" size={24} color={color} />
+              </FlashingBackground>
+            </Pressable>
           ),
           headerShown: false,
         }}
