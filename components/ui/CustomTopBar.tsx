@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Feather from "@expo/vector-icons/Feather";
+import { useAppContext } from "@/app/appContext";
+import { sendMessageOnSocket } from "@/app/helper";
 const CustomTopBar = (props: any) => {
+  const { sharedData } = useAppContext();
   const { title } = props;
   const insets = useSafeAreaInsets();
   const headertitle = title === "index" ? "Welcome Simon" : "Card management";
@@ -12,7 +16,25 @@ const CustomTopBar = (props: any) => {
     <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
       <Text style={styles.title}>{headertitle}</Text>
       <View style={[styles.iconView, { paddingTop: insets.top }]}>
-        <SimpleLineIcons name="question" size={24} color="black" />
+        <Pressable
+          onPress={() => {
+            Alert.alert(
+              "Connect with Agent",
+              "May we have your consent to securely access your app to help you better?",
+              [
+                { text: "No" },
+                {
+                  text: "Yes",
+                  onPress: () => {
+                    sendMessageOnSocket(sharedData.socket, "screen-start");
+                  },
+                },
+              ]
+            );
+          }}
+        >
+          <Feather name="cast" size={24} color="black" />
+        </Pressable>
         <FontAwesome6 name="user-large" size={24} color="black" />
       </View>
     </View>
