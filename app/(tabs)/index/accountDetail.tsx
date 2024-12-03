@@ -11,6 +11,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useNavigation } from "expo-router";
+import FlashingBackground from "@/components/FlashingBackground";
 const { width } = Dimensions.get("window");
 
 const CreditPaymentIcon = () => (
@@ -95,13 +96,15 @@ const accountDetail = () => {
           </View>
         </View>
         <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("statements");
-            }}
-          >
-            <Ionicons name="document-outline" size={30} color="black" />
-          </Pressable>
+          <FlashingBackground>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("statements");
+              }}
+            >
+              <Ionicons name="document-outline" size={30} color="black" />
+            </Pressable>
+          </FlashingBackground>
           <AntDesign name="search1" size={28} color="black" />
         </View>
       </View>

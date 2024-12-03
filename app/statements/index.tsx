@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import FlashingBackground from "@/components/FlashingBackground";
 const Statements = () => {
   const navigation = useNavigation();
   const months = [
@@ -87,21 +88,22 @@ const Statements = () => {
             </View>
             <View style={{ paddingLeft: 12, paddingBottom: 12 }}>
               {months.map((month) => (
-                <Pressable
-                  key={month}
-                  style={{
-                    paddingVertical: 12,
-                    borderBottomColor: "grey",
-                    borderBottomWidth: 0.18,
-                  }}
-                  onPress={() => {
-                    navigation.navigate("viewer");
-                  }}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                    {month}
-                  </Text>
-                </Pressable>
+                <FlashingBackground key={month} disabled={month !== "December"}>
+                  <Pressable
+                    style={{
+                      paddingVertical: 12,
+                      borderBottomColor: "grey",
+                      borderBottomWidth: 0.18,
+                    }}
+                    onPress={() => {
+                      navigation.navigate("viewer");
+                    }}
+                  >
+                    <Text style={{ fontSize: 16, fontWeight: "600" }}>
+                      {month}
+                    </Text>
+                  </Pressable>
+                </FlashingBackground>
               ))}
             </View>
           </View>

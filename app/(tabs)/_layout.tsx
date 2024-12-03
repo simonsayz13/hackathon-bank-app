@@ -5,7 +5,7 @@ import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-// import FlashingBackground from "@/components/FlashingBackground";
+import FlashingBackground from "@/components/FlashingBackground";
 
 export default function TabLayout() {
   const navigation = useNavigation();
@@ -28,7 +28,9 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <FlashingBackground>
+              <IconSymbol size={28} name="house.fill" color={color} />
+            </FlashingBackground>
           ),
           headerShown: false,
         }}
@@ -86,9 +88,7 @@ export default function TabLayout() {
         options={{
           title: "Cards",
           tabBarIcon: ({ color }) => (
-            // <FlashingBackground>
             <AntDesign name="creditcard" size={24} color={color} />
-            // </FlashingBackground>
           ),
           headerShown: false,
         }}

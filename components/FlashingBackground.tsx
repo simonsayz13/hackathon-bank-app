@@ -1,48 +1,51 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated, StyleSheet } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  interpolateColor,
+} from "react-native-reanimated";
 
-const Tabs = createBottomTabNavigator();
+const FlashingBorder = ({
+  children,
+  disabled,
+}: {
+  children: any;
+  disabled?: boolean;
+}) => {
+  const borderAnimation = useSharedValue(0);
 
-const FlashingBackground = ({ children }:{children:any}) => {
-    const backgroundColor = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Animated.loop(
-            Animated.sequence([
-                Animated.timing(backgroundColor, {
-                    toValue: 1, // Transition to the second color
-                    duration: 1000, // 1 second
-                    useNativeDriver: false, // Required for color animations
-                }),
-                Animated.timing(backgroundColor, {
-                    toValue: 0, // Transition back to the first color
-                    duration: 1000, // 1 second
-                    useNativeDriver: false,
-                }),
-            ])
-        ).start();
-    }, [backgroundColor]);
-
-    const interpolatedColor = backgroundColor.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['#ffcccc', '#ccffcc'], // Flash between light red and light green
-    });
-
-    return (
-        <Animated.View style={[styles.flashingBackground, { backgroundColor: interpolatedColor }]}>
-            {children}
-        </Animated.View>
+  useEffect(() => {
+    // Start infinite loop animation for the border
+    borderAnimation.value = withRepeat(
+      withTiming(1, { duration: 1000 }), // Duration of one cycle
+      -1, // Repeat indefinitely
+      true // Reverse the animation
     );
+  }, [borderAnimation]);
+
+  // Animated style for the border
+  const animatedStyle = useAnimatedStyle(() => {
+    const borderColor = interpolateColor(
+      borderAnimation.value,
+      [0, 1],
+      ["transparent", "#ff0000"] // Flash between white and red
+    );
+    return {
+      borderColor,
+      borderWidth: 2, // Border width around the children
+    };
+  });
+
+  return (
+    <Animated.View style={[!disabled && animatedStyle]}>
+      {children}
+    </Animated.View>
+  );
 };
 
-const styles = StyleSheet.create({
-    flashingBackground: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+const styles = StyleSheet.create({});
 
-export default FlashingBackground
+export default FlashingBorder;

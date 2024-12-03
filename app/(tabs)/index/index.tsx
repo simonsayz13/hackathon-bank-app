@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "expo-router";
+import FlashingBackground from "@/components/FlashingBackground";
 const Home = () => {
   const navigation = useNavigation();
   return (
@@ -32,30 +33,33 @@ const Home = () => {
           </View>
         </ScrollView>
       </View>
-      <ScrollView style={[styles.scrollViewContainer, { gap: 20 }]}>
-        <Pressable
-          style={styles.accountView}
-          onPress={() => {
-            navigation.navigate("accountDetail");
-          }}
-        >
-          <View style={styles.accountContainer}>
-            <View style={styles.productDetailContainer}>
-              <Text style={styles.productNameText}>Club lloyds</Text>
-              <Text style={styles.productDetailsText}>66-66-66 / 12341234</Text>
+      <ScrollView style={styles.scrollViewContainer}>
+        <FlashingBackground>
+          <Pressable
+            style={styles.accountView}
+            onPress={() => {
+              navigation.navigate("accountDetail");
+            }}
+          >
+            <View style={styles.accountContainer}>
+              <View style={styles.productDetailContainer}>
+                <Text style={styles.productNameText}>Club lloyds</Text>
+                <Text style={styles.productDetailsText}>
+                  66-66-66 / 12341234
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.balanceText}>£520.33</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.balanceText}>£520.33</Text>
+            <View style={styles.productActionView}>
+              <Text style={{ fontSize: 14, fontWeight: 400 }}>
+                Your overdraft options
+              </Text>
+              <AntDesign name="arrowright" size={20} color="black" />
             </View>
-          </View>
-          <View style={styles.productActionView}>
-            <Text style={{ fontSize: 14, fontWeight: 400 }}>
-              Your overdraft options
-            </Text>
-            <AntDesign name="arrowright" size={20} color="black" />
-          </View>
-        </Pressable>
-
+          </Pressable>
+        </FlashingBackground>
         <View style={styles.accountView}>
           <View style={[styles.accountContainer, { borderRadius: 8 }]}>
             <View style={styles.productDetailContainer}>
